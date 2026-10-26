@@ -39,18 +39,19 @@ Daftar perubahan terhadap kode dasar, beserta alasan dan pengaruhnya terhadap ha
 - Menyimpan video hasil deteksi serta mengukur FPS inferensi.
 
 ## Hasil Eksperimen
-No	Skenario	Epochs	Batch	Optimizer	mAP50	mAP50-95	Keterangan
-0	Baseline (kode dasar)	50	16	auto	0.643	0.316	Titik acuan eksperimen
-1	Learning Rate Rendah (lr0 rendah)	50	16	AdamW	0.640	0.337	mAP50-95 sedikit meningkat, tetapi mAP50 hampir sama dengan baseline
-2	Learning Rate Tinggi (lr0 tinggi)	50	16	AdamW	0.501	0.205	Performa menurun; kemungkinan learning rate terlalu tinggi
-3	Optimizer SGD	50	16	SGD	0.652	0.277	mAP50 meningkat sedikit, tetapi mAP50-95 menurun
-4	Batch Size 8	50	8	auto	0.699	0.344	Peningkatan mAP dibanding baseline
-5	Epochs 100	100	16	auto	0.572	0.296	Training berhenti pada epoch ke-46
-6	Augmentasi Ringan (07_augment_light)	50	16	AdamW	0.911	0.486	Hasil validasi terbaik; dipilih sebagai kandidat model
-7	Model YOLOv8s	50	16	auto	0.486	0.379	Training baru mencapai 16 epoch sehingga belum sebanding langsung dengan eksperimen 50 epoch
-8	Tanpa Mosaic (no_mosaic)	50	16	auto	0.657	0.322	Performa lebih baik dari baseline pada mAP50 dan mAP50-95
+| No | Skenario                             | Epochs | Batch | Optimizer | mAP50 | mAP50-95 | Keterangan                                                                                   |
+|----|--------------------------------------|--------|-------|-----------|-------|----------|----------------------------------------------------------------------------------------------|
+| 0  | Baseline (kode dasar)                | 50     | 16    | auto      | 0.643 | 0.316    | Titik acuan eksperimen                                                                       |
+| 1  | Learning Rate Rendah (lr0 rendah)    | 50     | 16    | AdamW     | 0.640 | 0.337    | mAP50-95 sedikit meningkat, tetapi mAP50 hampir sama dengan baseline                         |
+| 2  | Learning Rate Tinggi (lr0 tinggi)    | 50     | 16    | AdamW     | 0.501 | 0.205    | Performa menurun; kemungkinan learning rate terlalu tinggi                                   |
+| 3  | Optimizer SGD                        | 50     | 16    | SGD       | 0.652 | 0.277    | mAP50 meningkat sedikit, tetapi mAP50-95 menurun                                             |
+| 4  | Batch Size 8                         | 50     | 8     | auto      | 0.699 | 0.344    | Peningkatan mAP dibanding baseline                                                           |
+| 5  | Epochs 100                           | 100    | 16    | auto      | 0.572 | 0.296    | Training berhenti pada epoch ke-46                                                           |
+| 6  | Augmentasi Ringan (07_augment_light) | 50     | 16    | AdamW     | 0.911 | 0.486    | Hasil validasi terbaik; dipilih sebagai kandidat model                                       |
+| 7  | Model YOLOv8s                        | 50     | 16    | auto      | 0.486 | 0.379    | Training baru mencapai 16 epoch sehingga belum sebanding langsung dengan eksperimen 50 epoch |
+| 8  | Tanpa Mosaic (no_mosaic)             | 50     | 16    | auto      | 0.657 | 0.322    | Performa lebih baik dari baseline pada mAP50 dan mAP50-95                                    |
 
 ## Analisis dan Kendala
-- Penyebab skenario terbaik menghasilkan nilai lebih tinggi: Skenario 07_augment_light memperoleh hasil terbaik karena penggunaan augmentasi ringan membantu model mengenali variasi objek dan kondisi visual. Model menghasilkan mAP50 sebesar 0,911 dan mAP50-95 sebesar 0,486 pada validasi.
+1. Penyebab skenario terbaik menghasilkan nilai lebih tinggi: Skenario 07_augment_light memperoleh hasil terbaik karena penggunaan augmentasi ringan membantu model mengenali variasi objek dan kondisi visual. Model menghasilkan mAP50 sebesar 0,911 dan mAP50-95 sebesar 0,486 pada validasi.
 
-- Kendala yang ditemui dan cara penyelesaiannya: Kendala meliputi keterbatasan jumlah dataset, perbedaan hasil antar-konfigurasi, file best.pt yang tidak ditemukan, serta error OpenCV saat menampilkan video. Penanganannya dilakukan melalui augmentasi data, perbandingan hasil eksperimen, penyesuaian path model, dan perbaikan instalasi OpenCV.
+2. Kendala yang ditemui dan cara penyelesaiannya: Kendala meliputi keterbatasan jumlah dataset, perbedaan hasil antar-konfigurasi, file best.pt yang tidak ditemukan, serta error OpenCV saat menampilkan video. Penanganannya dilakukan melalui augmentasi data, perbandingan hasil eksperimen, penyesuaian path model, dan perbaikan instalasi OpenCV.
